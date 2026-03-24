@@ -7,12 +7,53 @@ namespace ApiPersonas.Controllers
     [ApiController]
     public class PersonasController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetPersonas()
-        {
-            List<Persona> personas = new List<Persona>();
+        private List<Persona> personas;
 
-            return Ok(personas);
+        public PersonasController()
+        {
+            this.personas = new List<Persona>
+            {
+                new Persona
+                {
+                    IdPersona = 1,
+                    Nombre = "Lucia",
+                    Email = "lucia@gmail.com",
+                    Edad = 42
+                },
+                new Persona
+                {
+                    IdPersona = 2,
+                    Nombre = "Carlos",
+                    Email = "carlos@example.com",
+                    Edad = 35
+                },
+                new Persona
+                {
+                    IdPersona = 3,
+                    Nombre = "Maria",
+                    Email = "maria@example.com",
+                    Edad = 28
+                },
+                new Persona
+                {
+                    IdPersona = 4,
+                    Nombre = "Javier",
+                    Email = "javier@example.com",
+                    Edad = 50
+                }
+            };
+        }
+
+        [HttpGet]
+        public ActionResult<List<Persona>> Get()
+        {
+            return personas;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Persona> Find(int id)
+        {
+            return this.personas.FirstOrDefault(z => z.IdPersona == id);
         }
     }
 }
